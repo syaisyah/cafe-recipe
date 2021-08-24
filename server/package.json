@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "cafe recipe admin",
+  "main": "index.js",
+  "scripts": {
+    "db:create:test": "NODE_ENV=test npx sequelize db:create",
+    "db:migrate:test": "NODE_ENV=test npx sequelize db:migrate",
+    "db:seed:test": "NODE_ENV=test npx sequelize db:seed:all",
+    "db:create:development": "NODE_ENV=development npx sequelize db:create",
+    "db:migrate:development": "NODE_ENV=development npx sequelize db:migrate",
+    "db:seed:development": "NODE_ENV=development npx sequelize db:seed:all",
+    "test": "NODE_ENV=test npx jest --detectOpenHandles --forceExit --runInBand",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "siti aisyah",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
+    "redis": "^3.1.2",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "jest": "^27.0.6",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.6"
+  }
+}
