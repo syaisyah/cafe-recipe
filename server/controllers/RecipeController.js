@@ -1,10 +1,16 @@
-const { Recipe } = require('../models/')
+const { Recipe, Menu, ingredient } = require('../models/');
+
 
 
 class RecipeController {
   static async findAllRecipes(req, res, next) {
     try {
-      const data = await Recipe.findAll()
+      const data = await Recipe.findAll({
+        include: [
+          { model: Menu },
+          { model: ingredient }
+        ]
+      })
       res.status(200).json({ success: true, data })
     } catch (err) {
       next(err)
@@ -25,6 +31,9 @@ class RecipeController {
       next(err)
     }
   }
+  // edit resep di menu tertentu
+  //belum masuk api doc
+
 
 }
 

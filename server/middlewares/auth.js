@@ -1,27 +1,26 @@
 const { User } = require('../models/')
-const { verifToken } = require('../helpers/token')
+const { verifyToken } = require('../helpers/token')
 
 
 
 const authentication = async (req, res, next) => {
   try {
-    const decode = verifyToken(req.header.access_token)
+    const decode = verifyToken(req.headers.access_token)
     const user = await User.findByPk(+decode.id)
     if (user) {
       req.logginUser = { id: user.id, email: user.email, role: user.role }
+      next()
     } else {
       next(err)
     }
-
   } catch (err) {
     next(err)
   }
 }
 
 
-const authAdmin = async (req, res, next) => {
-  const roleUser = req.logginUser.role.toLowerCase()
-    (roleUser === 'admin') ? next() : next({ msg: 'UnAuthorized - Access is Denied' })
+const authAdmin = (req, res, next) => {
+  (req.logginUser.role.toLowerCase() === 'admin') ? next() : next({ msg: 'UnAuthorized - Access is Denied' })
 }
 
 

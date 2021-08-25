@@ -11,8 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Recipe.belongsTo(models.Menu)
-      Recipe.belongsTo(models.Ingredient)
+      Recipe.belongsTo(models.Menu, {
+        foreignKey: 'MenuId',
+        targetKey: 'id'
+      })
+      Recipe.belongsTo(models.Ingredient, {
+        foreignKey: 'IngredientId',
+        targetKey: 'id'
+      })
     }
   };
   Recipe.init({

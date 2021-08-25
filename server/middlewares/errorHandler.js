@@ -1,5 +1,5 @@
 function errorHandler(err, req, res, next) {
-  console.log(err, 'error handelr ......')
+  console.log(err, 'err asli >>>>>>>>>')
   let statusCode = 500;
   let message = ['Internal Server Errors']
 
@@ -50,7 +50,7 @@ function errorHandler(err, req, res, next) {
       message = [`${err.msg}`]
       break;
   }
-
+  console.log(statusCode, message, 'error handelr ......')
   res.status(statusCode).json({ status: statusCode, message })
 }
 

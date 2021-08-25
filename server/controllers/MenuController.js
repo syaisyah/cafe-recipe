@@ -5,7 +5,7 @@ class MenuController {
     try {
       // ngambil id dari ingredients nya buat dimasukin ke recipe table
       // recipes : { MenuId: id, IngredientId: id } // dari client 
-      const { name, image, recipes } = req.body;
+      const { name, image } = req.body;
       const newMenu = { name, image }
       const menu = await Menu.create(newMenu)
       const dataRecipes = await Recipe.create({
@@ -47,6 +47,7 @@ class MenuController {
     } catch (err) { next(err) }
   }
   // router.put('/:id', authAdmin, MenuController.editDetailMenu)
+  // harusnya resep nya juga diedit 
   static async editMenu (req, res, next) {
     const idMenu = +req.params.id;
     const menu = await Menu.findByPk(idMenu)

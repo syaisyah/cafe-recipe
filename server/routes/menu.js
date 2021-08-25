@@ -2,7 +2,7 @@ const router = require('express').Router()
 const MenuController = require('../controllers/MenuController')
 const { authentication, authAdmin } = require('../middlewares/auth')
 
-app.use(authentication)
+router.use(authentication)
 router.post('/', authAdmin, MenuController.createMenu) // crate beserta ingredients 
 router.get('/', authAdmin, MenuController.getAllMenu)
 router.get('/:id', authAdmin, MenuController.getDetailMenu) //nampilin resep nya getRecipeOfMenu

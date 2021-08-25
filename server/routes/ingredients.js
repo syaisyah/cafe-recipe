@@ -2,8 +2,7 @@ const router = require('express').Router()
 const IngredientController = require('../controllers/IngredientController')
 const { authentication, authAdmin } = require('../middlewares/auth')
 
-
-app.use(authentication)
+router.use(authentication)
 router.post('/', authAdmin, IngredientController.createIngredient)
 router.get('/', authAdmin, IngredientController.getAllIngredients)
 router.get('/:id', authAdmin, IngredientController.getDetailIngredient)

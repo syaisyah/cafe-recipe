@@ -1,5 +1,5 @@
 const initialState = {
-  data: [],
+  access_token: "",
   loading: false,
   error: null
 }
@@ -12,8 +12,9 @@ export default function reducer(state = initialState, action) {
       return { ...state, loading: payload }
     case 'error/setError':
       return { ...state, error: payload }
-    case 'menu/setMenu':
-      return { ...state, data: payload }
+    case 'accessToken/setAccessToken':
+      console.log(payload, 'ini payload token di reducer user ')
+      return { ...state, access_token: payload }
     default:
       return state
   }

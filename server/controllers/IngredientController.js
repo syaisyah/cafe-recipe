@@ -11,8 +11,10 @@ class IngredientController {
   }
   // router.get('/', IngredientController.getAllIngredient)
   static async getAllIngredients(req, res, next) {
+    console.log('masuk getAllIngredients >>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     try {
       const ingredients = await Ingredient.findAll()
+      console.log(ingredients, ' getAllIngredients >>>>>>>>>>>>>>>>>>>>>>>>>>> ')
       res.status(200).json(ingredients)
     } catch (err) {
       next(err)

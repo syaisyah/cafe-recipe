@@ -1,4 +1,4 @@
-import axios from '../../helpers/axios';
+import baseURL from '../helpers/baseURL'
 
 export function setLoading(payload) {
   return { type: 'loading/setLoading', payload }
@@ -11,7 +11,7 @@ export function setMenu(payload) {
   return { type: "menu/setMenu", payload }
 }
 
-export function setMenuAsync() {
+export function getMenuAsync() {
   return (dispatch, getState) => {
     //lakukan proses axios
 
