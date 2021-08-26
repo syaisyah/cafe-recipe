@@ -1,6 +1,7 @@
 const { Ingredient } = require('../models/')
 
 class IngredientController {
+  // kepake
   // router.post('/', IngredientController.createIngredient)
   static async createIngredient(req, res, next) {
     try {
@@ -10,6 +11,7 @@ class IngredientController {
     } catch (err) { next(err) }
   }
   // router.get('/', IngredientController.getAllIngredient)
+  //kepake
   static async getAllIngredients(req, res, next) {
     console.log('masuk getAllIngredients >>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     try {

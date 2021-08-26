@@ -22,7 +22,6 @@ export function addIngredient(payload) {
 export function getIngredientsAsync() {
   return (dispatch, getState) => {
     dispatch(setLoading(true))
-    console.log(localStorage, 'local >>>>>>>>>>>>')
     axios({
       url: baseURL + '/ingredients',
       method: "GET",
@@ -31,7 +30,6 @@ export function getIngredientsAsync() {
       }
     })
       .then(({ data }) => {
-        console.log(data, 'err ingredients action getIngredientsAsync >>>>>>> ')
         dispatch(setIngredients(data))
       })
       .catch(err => {

@@ -1,4 +1,4 @@
-const { Menu, Recipe } = require('../models/')
+const { Menu, Recipe, Ingredient } = require('../models/')
 
 class MenuController {
   static async createMenu(req, res, next) {
@@ -21,34 +21,36 @@ class MenuController {
   }
 
   // router.get('/', authAdmin, MenuController.getAllMenu)
+  // kepake  diubah nih pake find Recipe nya juga ya 
   static async getAllMenu(req, res, next) {
     try {
       const menu = await Menu.findAll()
-      res.status(200).json({ data: menu })
+      res.status(200).json(menu)
     } catch (err) {
       next(err)
     }
   }
   // router.get('/:id', authAdmin, MenuController.getDetailMenu)
-  static async getDetailMenu(req, res, next) { // kepake di tombol detail
-    try {
-      const idMenu = +req.params.id;
-      const menu = await Menu.findByPk(idMenu)
-      if (menu) {
-        const recipes = await Recipe.findAll({ where: { MenuId: idMenu}})
-        if (recipes) {
-          res.status(200).json({ data: menu, recipes})
-        } else {
-          next({ msg: "Recipe Not Found"})
-        }
-      } else {
-        next({ msg: "Menu Not Found" })
-      }
-    } catch (err) { next(err) }
-  }
+
+  // static async getDetailMenu(req, res, next) { // kepake di tombol detail
+  //   try {
+  //     const idMenu = +req.params.id;
+  //     const menu = await Menu.findByPk(idMenu)
+  //     if (menu) {
+  //       const recipes = await Recipe.findAll({ where: { MenuId: idMenu } })
+  //       if (recipes) {
+  //         res.status(200).json({ data: menu, recipes })
+  //       } else {
+  //         next({ msg: "Recipe Not Found" })
+  //       }
+  //     } else {
+  //       next({ msg: "Menu Not Found" })
+  //     }
+  //   } catch (err) { next(err) }
+  // }
   // router.put('/:id', authAdmin, MenuController.editDetailMenu)
   // harusnya resep nya juga diedit 
-  static async editMenu (req, res, next) {
+  static async editMenu(req, res, next) {
     const idMenu = +req.params.id;
     const menu = await Menu.findByPk(idMenu)
     if (menu) {

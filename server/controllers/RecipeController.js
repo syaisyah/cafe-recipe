@@ -1,4 +1,4 @@
-const { Recipe, Menu, ingredient } = require('../models/');
+const { Recipe, Menu, Ingredient } = require('../models/');
 
 
 
@@ -32,9 +32,25 @@ class RecipeController {
     }
   }
   // edit resep di menu tertentu
-  //belum masuk api doc
+  // kepake 
+  static async getRecipeOfMenu(req, res, next) { // kepake di tombol recipe
+    try {
+      const idMenu = +req.params.id;
+      const recipes = await Recipe.findAll(
+        {
+          where: { MenuId: idMenu },
+          include: [
+            { model: Ingredient }
+          ]
+        })
+      if (recipes) {
+        res.status(200).json(recipes)
+      } else {
+        next({ msg: "Recipe Not Found" })
+      }
 
-
+    } catch (err) { next(err) }
+  }
 }
 
 module.exports = RecipeController

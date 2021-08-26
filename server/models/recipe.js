@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     MenuId: DataTypes.INTEGER,
-    RecipeId: DataTypes.INTEGER
+    IngredientId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Recipe',

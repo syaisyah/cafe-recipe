@@ -10,9 +10,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState({});
 
-  const handleClose = () => {
-    setShow(false);
-  };
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleOnChange = (e) => {
@@ -23,9 +21,7 @@ export default function NavBar() {
   const addIngredient = () => {
     dispatch(addIngredientsToDB(input));
   };
-  const showFormAddMenu = () => {
-    history.push("/menu/add");
-  };
+  const showFormAddMenu = () => history.push("/menu/add");
 
   const moveToHome = () => history.push("/");
   return (

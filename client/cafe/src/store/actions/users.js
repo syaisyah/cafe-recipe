@@ -15,7 +15,6 @@ export function setAccessToken(payload) {
   return { type: 'accessToken/setAccessToken', payload }
 }
 
-
 export default function setAccessTokenAsync(user) {
   return (dispatch, getState) => {
     dispatch(setLoading(true))
@@ -32,7 +31,6 @@ export default function setAccessTokenAsync(user) {
         )
         localStorage.setItem('access_token', data.access_token)
         dispatch(setAccessToken(data.access_token))
-
       })
       .catch((err) => {
         const { status, message } = err.response.data

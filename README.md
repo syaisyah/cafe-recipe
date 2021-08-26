@@ -81,6 +81,7 @@ http://localhost:3000
 ```
 - GET /recipes
 - PATCH /recipes/:id
+- GET /recipes/:id
 ```
 
 # ENDPOINTS
@@ -197,15 +198,15 @@ Required Auth: Yes (only for admin role)
 - Success Response:
 
 ```
-{
-  data : [
-    {
-      id: "<menu id from database system>",
-      name: "<menu name>",
-      image: "<menu image>",
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "Vanilla Latte",
+    "image": "https://cf.shopee.co.id/file/262377119bfb1f13f637e06bbf930b8f",
+    "createdAt": "2021-08-26T10:56:04.000Z",
+    "updatedAt": "2021-08-26T10:56:04.000Z"
+  }
+]
 ```
 
 3. Get Detail Menu by Specific Id
@@ -539,6 +540,75 @@ Require Auth: Yes (only for admin role)
   success: true,
   message: "Successfully deleted some recipes of menu"
 }
+```
+
+3. Get Recipe of Menu with Specific id
+
+```
+Method: GET
+URL: /recipes/:id
+Require Auth: Yes (only for admin role)
+
+```
+
+- Request Params:
+
+```
+- id: integer
+```
+
+- Request Headers:
+
+```
+{
+  access_token: "<admin access_token>"
+}
+```
+
+- Success Response:
+
+```
+[
+  {
+    "id": 1,
+    "MenuId": 1,
+    "IngredientId": 2,
+    "createdAt": "2021-08-26T10:56:04.000Z",
+    "updatedAt": "2021-08-26T10:56:04.000Z",
+    "Ingredient": {
+      "id": 2,
+      "name": "Milk",
+      "createdAt": "2021-08-26T10:52:04.962Z",
+      "updatedAt": "2021-08-26T10:52:04.962Z"
+    }
+  },
+  {
+    "id": 2,
+    "MenuId": 1,
+    "IngredientId": 5,
+    "createdAt": "2021-08-26T11:00:04.000Z",
+    "updatedAt": "2021-08-26T11:00:04.000Z",
+    "Ingredient": {
+      "id": 5,
+      "name": "Vanilla Syrup",
+      "createdAt": "2021-08-26T10:52:04.962Z",
+      "updatedAt": "2021-08-26T10:52:04.962Z"
+    }
+  },
+  {
+    "id": 3,
+    "MenuId": 1,
+    "IngredientId": 6,
+    "createdAt": "2021-08-26T11:03:04.000Z",
+    "updatedAt": "2021-08-26T11:03:04.000Z",
+    "Ingredient": {
+      "id": 6,
+      "name": "Whipped Cream",
+      "createdAt": "2021-08-26T10:52:04.962Z",
+      "updatedAt": "2021-08-26T10:52:04.962Z"
+    }
+  }
+]
 ```
 
 # RESTful Error Message

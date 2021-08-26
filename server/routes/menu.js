@@ -5,7 +5,7 @@ const { authentication, authAdmin } = require('../middlewares/auth')
 router.use(authentication)
 router.post('/', authAdmin, MenuController.createMenu) // crate beserta ingredients 
 router.get('/', authAdmin, MenuController.getAllMenu)
-router.get('/:id', authAdmin, MenuController.getDetailMenu) //nampilin resep nya getRecipeOfMenu
+// router.get('/:id', authAdmin, MenuController.getDetailMenu) //nampilin resep nya getRecipeOfMenu
 router.put('/:id', authAdmin, MenuController.editMenu) // cuman edit name dan image
 router.delete('/:id', authAdmin, MenuController.deleteMenu)
 
