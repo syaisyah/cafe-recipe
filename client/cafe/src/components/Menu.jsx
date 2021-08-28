@@ -11,9 +11,7 @@ export default function Menu(props) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  // const handleShow = () => {
-  //   setShow(true);
-  // };
+
   const getRecipe = (e) => {
     e.preventDefault();
     setShow(true);

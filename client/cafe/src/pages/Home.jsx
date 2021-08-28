@@ -14,7 +14,7 @@ export default function Home() {
   const { data: dataIngredients } = useSelector((state) => state.ingredients);
   const dispatch = useDispatch();
   const history = useHistory();
-
+  
   useEffect(() => {
     dispatch(getAllMenuAsync());
   }, []);

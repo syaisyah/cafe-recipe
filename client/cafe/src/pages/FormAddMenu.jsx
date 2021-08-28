@@ -1,57 +1,60 @@
-// https://tariqul-islam-rony.medium.com/multiple-checkbox-handling-by-react-js-84b1d49a46c6
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getIngredientsAsync } from "../store/actions/ingredients";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import axios from 'axios'
+import baseURL from "../store/helpers/baseURL";
 
 export default function FormAddMenu() {
-  const { data, loading, error } = useSelector((state) => state.ingredients);
   const history = useHistory();
-  const dispatch = useDispatch();
   const [menu, setMenu] = useState({ name: "", image: "" });
   const [ingredients, setIngredients] = useState([]);
+ 
 
   useEffect(() => {
-    dispatch(getIngredientsAsync());
-  }, [ingredients]);
+    axios({
+      url: baseURL + '/ingredients',
+      method: "GET",
+      headers: { access_token: localStorage.getItem('access_token')}
+    })
+    .then(({data}) => {
+      const options = data.map(({id, name}) => {
+       return { id, name, isChecked: false}
+    })
+      setIngredients(options)
+    })
+    .catch(err => console.log(err))
+  }, []);
+  
 
-  useEffect(() => {
-    setIngredients(data);
-  }, [ingredients]);
 
-  const handleOnChange = (e) => {
-    e.preventDefault();
+  const handleOnChangeMenu = (e) => {
     const { name, value } = e.target;
     setMenu({ ...menu, [name]: value });
   };
 
-  const handleIngredients = (e, index) => {
-    e.preventDefault();
-    // let dataIngredients = data.map((ingredient) => (ingredient.isChecked = false));
-    // console.log(dataIngredients, ">>>>>>>>>>>dataIngredients");
-    // const check = ingredients.map((ingredient, i) => (index === i ? ingredient : !ingredient));
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    console.log(value, e.target.name, "value name ");
-    const tempIngredients = JSON.parse(JSON.stringify(data));
-    tempIngredients[index] = value;
-    setIngredients(tempIngredients);
-    console.log(ingredients, "ingreadients ");
+  const handleOnChangeIngredient = (e, i) => {
+    const { checked } = e.target;
+    let newIngredients = JSON.parse(JSON.stringify(ingredients))
+    newIngredients[i].isChecked = checked;
+    setIngredients(newIngredients)
   };
 
   const submit = () => {
-    console.log(menu, "menu input");
-    console.log(ingredients, "input ingredient ..");
-  };
-  const backToHome = () => {
-    history.push("/");
-  };
-  //if (loading) return <Loading />;
-  if (error) return <Error />;
+    const filterIngredients = ingredients.filter(item => item.isChecked === true)
 
+    console.log(filterIngredients, '.............')
+    const newMenu = {
+      menu, ingredients: filterIngredients
+    }
+
+    console.log(newMenu, '?>>>>>>>>>>')
+  };
+
+  const moveToHome = () => history.push('/')
   return (
     <>
       <Row>
@@ -62,42 +65,36 @@ export default function FormAddMenu() {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Vanilla Latte" name="name" onChange={handleOnChange} />
+                <Form.Control type="text" placeholder="Vanilla Latte" name="name" onChange={(e) => handleOnChangeMenu(e)} />
               </Form.Group>
 
               <Form.Group className="mb-5">
                 <Form.Label>Image Url</Form.Label>
-                <Form.Control type="text" placeholder="Url for image" name="image" onChange={handleOnChange} />
+                <Form.Control type="text" placeholder="Url for image" name="image" onChange={(e) => handleOnChangeMenu(e)} />
               </Form.Group>
 
               <Form.Group className="mb-5">
                 <Form.Label>
-                  <b>INGREDIENTS:</b>{" "}
+                  <b>INGREDIENTS:</b>
                 </Form.Label>
                 <div>
-                  {data.map((el, index) => {
+                  {ingredients.map((item, index) => {
                     return (
-                      <Form.Check
-                        inline
-                        id={`custom-checkbox-${index}`}
-                        type="checkbox"
-                        key={el.id + "ingredient"}
-                        label={el.name}
-                        name={el.name}
-                        value={el.id}
-                        // checked={ingredients[index]}
-                        onChange={(e) => handleIngredients(e, index)}
-                        // checked={data.id === ingredient.id ? "checked" : null}
+                      <Form.Check 
+                      inline 
+                      key={item.id + "ingredient"} 
+                      label={item.name} 
+                      checked={item.isChecked} 
+                      onChange={(e) => handleOnChangeIngredient(e, index)}
                       />
-                    );
-                  })}
+                    )})}
                 </div>
               </Form.Group>
             </Form>
             <Button variant="success" type="submit" className="w-5 mx-2" onClick={submit}>
               Submit
             </Button>
-            <Button variant="danger" type="submit" className="w-5 mx-2" onClick={backToHome}>
+            <Button variant="warning" type="submit" className="w-5 mx-2" onClick={moveToHome}>
               Back
             </Button>
           </Container>

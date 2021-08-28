@@ -5,15 +5,16 @@ class MenuController {
     try {
       // ngambil id dari ingredients nya buat dimasukin ke recipe table
       // recipes : { MenuId: id, IngredientId: id } // dari client 
-      const { name, image } = req.body;
-      const newMenu = { name, image }
-      const menu = await Menu.create(newMenu)
-      const dataRecipes = await Recipe.create({
-        MenuId: recipes.MenuId,
-        Ingredient: recipes.IngredientId
-      })
+      console.log(req.body, 'ini req.body createMenu >>>>>>>>>>>>>>>>>>')
+      // const { name, image } = req.body;
+      // const newMenu = { name, image }
+      // const menu = await Menu.create(newMenu)
+      // const dataRecipes = await Recipe.create({
+      //   MenuId: recipes.MenuId,
+      //   Ingredient: recipes.IngredientId
+      // })
 
-      res.status(201).json({ success: true, message: "Successfully created a new menu" })
+      // res.status(201).json({ success: true, message: "Successfully created a new menu" })
 
     } catch (err) {
       next(err)

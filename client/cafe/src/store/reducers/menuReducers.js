@@ -13,7 +13,6 @@ export default function reducer(state = initialState, action) {
     case 'error/setError':
       return { ...state, error: payload }
     case 'menu/setMenu':
-      console.log(payload, 'ini payload')
       return { ...state, data: payload }
     default:
       return state

@@ -33,9 +33,7 @@ export function getIngredientsAsync() {
         dispatch(setIngredients(data))
       })
       .catch(err => {
-        const { status, message } = err.response.data
-        let error = { status, statusText: err.request.statusText, message }
-        console.log(error, 'err ingredients action')
+        console.log(err, 'err ingredients action')
       })
       .finally(_ => dispatch(setLoading(false)))
   }

@@ -4,11 +4,13 @@ import { useHistory } from "react-router";
 import { addIngredientsToDB } from "../store/actions/ingredients";
 import { useDispatch } from "react-redux";
 
+
 export default function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [input, setInput] = useState({});
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
