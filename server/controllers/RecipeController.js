@@ -1,4 +1,4 @@
-const { Recipe, Menu, Ingredient } = require('../models/');
+const { Recipe, Menu, Ingredient, sequelize } = require('../models/');
 
 
 
@@ -17,20 +17,7 @@ class RecipeController {
     }
   }
 
-  static async deleteRecipeOfMenu(req, res, next) {
-    try {
-      const recipeId = +req.params.id;
-      const recipe = await Recipe.findByPk(+recipeId)
-      if (recipe) {
-        await Recipe.destroy(recipeId)
-        res.status(200).json({ success: true, message: "Successfully deleted some recipes of menu" })
-      } else {
-        next({ msg: "Recipe Not Found" })
-      }
-    } catch (err) {
-      next(err)
-    }
-  }
+
   // edit resep di menu tertentu
   // kepake 
   static async getRecipeOfMenu(req, res, next) { // kepake di tombol recipe
@@ -49,6 +36,31 @@ class RecipeController {
         next({ msg: "Recipe Not Found" })
       }
 
+    } catch (err) { next(err) }
+  }
+
+
+
+
+  // kepake
+  static async addRecipeToMenu(req, res, next) {
+    try {
+      let menuId = +req.params.id;
+      let data = req.body.recipes;
+      let newData = data.map((recipe, i) => {
+        return {
+          MenuId: menuId,
+          IngredientId: recipe.id
+        }
+      })
+      const result = sequelize.transaction(async transaction => {
+        await Recipe.destroy({
+          where: { MenuId: menuId}
+        })
+        const newRecipe = await Recipe.bulkCreate(newData, {transaction})
+        
+      })
+      res.status(201).json({ message: "Successfully add recipe of menu"})
     } catch (err) { next(err) }
   }
 }

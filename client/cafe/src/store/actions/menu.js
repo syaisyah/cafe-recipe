@@ -51,7 +51,6 @@ export function addMenuToDB(payload) {
 // edit Menu
 
 export function editMenuToDB(payload) {
-  console.log(payload, 'payload masuk')
   return (dispatch, getState) => {
     axios({
       url: baseURL + '/menu/' + payload.id,
@@ -77,5 +76,25 @@ export function editMenuToDB(payload) {
        })
        dispatch(setMenu(updateMenu))
     })
+    .catch(err => console.log(err))
+    .finally(_ => dispatch(setLoading(false)))
+  }
+}
+
+//delete menu
+export function deleteMenuInDB(id) {
+  return (dispatch, getState) => {
+    axios({ 
+      url: baseURL + '/menu/' + id,
+      method: "DELETE",
+      headers: { access_token: localStorage.getItem('access_token')}
+    })
+    .then(_ => {
+      let menu = JSON.parse(JSON.stringify(getState().menu.data));
+      let newMenu = menu.filter(item => item.id !== id)
+      dispatch(setMenu(newMenu))
+    })
+    .catch(err => console.log(err))
+    .finally(_ => dispatch(setLoading(false)))
   }
 }

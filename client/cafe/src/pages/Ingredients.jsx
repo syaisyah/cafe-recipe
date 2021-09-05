@@ -1,38 +1,49 @@
 // buat tabel untuk list ingredients
-
-import { Table} from 'react-bootstrap'
+import { useEffect } from "react";
+import { Table, Row, Col, Button, Container } from "react-bootstrap";
+import NavBar from "../components/NavBar";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+import { getIngredientsAsync } from "../store/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
+import IngredientCard from "../components/IngredientCard";
 export default function Ingredient() {
+  const { data, loading, error } = useSelector((state) => state.ingredients);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredientsAsync);
+  }, [dispatch]);
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
   return (
     <>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      <Row>
+        <NavBar />
+        <Col md={10} className=" p-5">
+          {/* <Container> */}
+          <h1 className="my-5">Ingredients List</h1>
+          <Table striped bordered hover style={{ backgroundColor: "white"}}>
+            <thead>
+              <tr>
+                <th className="text-center">No</th>
+                <th className="text-center">Name</th>
+                <th className="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                data.map((ingredient, index) => {
+                  return <IngredientCard key={ingredient.id + 'ingredient'} ingredient={{ingredient, index}}/>
+                } )
+              }
+
+            </tbody>
+          </Table>
+          {/* </Container> */}
+        </Col>
+      </Row>
     </>
   );
 }

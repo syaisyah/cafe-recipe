@@ -21,9 +21,9 @@ function App() {
           <PrivateRoute path="/menu/add">
             <FormAddMenu />
           </PrivateRoute>
-          {/* <PrivateRoute>
-            <Ingredient path="/ingredients" />
-          </PrivateRoute> */}
+          <PrivateRoute path="/ingredients">
+            <Ingredient />
+          </PrivateRoute>
           <PrivateRoute path="/">
             <Home />
           </PrivateRoute>

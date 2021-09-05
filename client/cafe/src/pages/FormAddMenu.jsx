@@ -52,6 +52,7 @@ export default function FormAddMenu() {
       menu, ingredients: filterIngredients
     }
     dispatch(addMenuToDB(newMenu))
+    history.push('/')
   };
 
   const moveToHome = () => history.push('/')

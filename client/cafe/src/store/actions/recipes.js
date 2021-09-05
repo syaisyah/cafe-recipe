@@ -14,8 +14,6 @@ export function setRecipes(payload) {
 }
 
 
-
-
 export function getRecipeOfMenu(idMenu) {
   return (dispatch, getState) => {
 
@@ -25,10 +23,29 @@ export function getRecipeOfMenu(idMenu) {
       headers: { access_token: localStorage.getItem('access_token') }
     })
       .then(({ data }) => {
-        console.log(data, '>>>>')
         dispatch(setRecipes(data))
       })
       .catch(err => console.log(err))
       .finally(_ => dispatch(setLoading(false)))
+  }
+}
+
+// edit recipe
+export function editRecipeToDB(payload) {
+  console.log(payload, "payload.>>> editRecipeToDB")
+  return (dispatch, getState) => {
+    axios({
+      url: baseURL + '/recipes/' + payload.MenuId,
+      method: "POST",
+      data: { recipes: payload.recipes},
+      headers: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    .then(({data}) => {
+      dispatch(getRecipeOfMenu(payload.MenuId))
+    })
+    .catch(err => console.log(err))
+    .finally(_ => dispatch(setLoading(false)))
   }
 }

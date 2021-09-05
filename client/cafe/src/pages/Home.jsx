@@ -75,7 +75,7 @@ export default function Home() {
               </thead>
               <tbody>
                 {data.map((menu, i) => {
-                  return <Menu key={menu.id + "menuId"} menu={{ menu, index: i }} />;
+                  return <Menu key={menu.id + "menuId"} menu={{ menu, index: i, dataIngredients}} />;
                 })}
               </tbody>
             </Table>

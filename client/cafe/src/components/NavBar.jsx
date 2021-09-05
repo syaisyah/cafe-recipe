@@ -39,7 +39,7 @@ export default function NavBar() {
           <Button variant="info" className="w-50 mb-2" onClick={showFormAddMenu}>
             + Menu
           </Button>
-          <Button variant="warning" onClick={handleShow}>
+          <Button variant="warning" className="w-50" onClick={handleShow}>
             + Ingredients
           </Button>
           {/* Form Add Ingredients  */}

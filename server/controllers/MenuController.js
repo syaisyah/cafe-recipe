@@ -32,25 +32,6 @@ class MenuController {
     }
   }
   // router.get('/:id', authAdmin, MenuController.getDetailMenu)
-
-  // static async getDetailMenu(req, res, next) { // kepake di tombol detail
-  //   try {
-  //     const idMenu = +req.params.id;
-  //     const menu = await Menu.findByPk(idMenu)
-  //     if (menu) {
-  //       const recipes = await Recipe.findAll({ where: { MenuId: idMenu } })
-  //       if (recipes) {
-  //         res.status(200).json({ data: menu, recipes })
-  //       } else {
-  //         next({ msg: "Recipe Not Found" })
-  //       }
-  //     } else {
-  //       next({ msg: "Menu Not Found" })
-  //     }
-  //   } catch (err) { next(err) }
-  // }
-  // router.put('/:id', authAdmin, MenuController.editDetailMenu)
-  // harusnya resep nya juga diedit 
   // kepake 
   static async editMenu(req, res, next) {
     const idMenu = +req.params.id;
@@ -63,7 +44,7 @@ class MenuController {
       next({ message: "Menu Not Found" })
     }
   }
-  // router.delete('/:id', authAdmin, MenuController.deleteMenu)
+  //kepake
   static async deleteMenu(req, res, next) {
     try {
       const idMenu = +req.params.id;

@@ -516,10 +516,10 @@ Required Auth: Yes (only for admin role)
 }
 ```
 
-2. Delete some Recipe of Menu
+2. Add some Recipe to Menu
 
 ```
-Method: PATCH
+Method: POST
 URL: /recipes/:id
 Require Auth: Yes (only for admin role)
 
@@ -532,13 +532,22 @@ Require Auth: Yes (only for admin role)
   access_token: "<admin access_token>"
 }
 ```
+- Request Body:
+```
+{
+  recipes: [{
+    MenuId: "<menu id>",
+    IngredientId: "<ingredient id"
+  }]
+}
+```
 
 - Success Response:
 
 ```
 {
   success: true,
-  message: "Successfully deleted some recipes of menu"
+  message: "Successfully add recipe of menu",
 }
 ```
 
