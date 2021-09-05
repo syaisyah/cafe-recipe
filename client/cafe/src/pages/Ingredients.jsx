@@ -1,6 +1,6 @@
 // buat tabel untuk list ingredients
 import { useEffect } from "react";
-import { Table, Row, Col, Button, Container } from "react-bootstrap";
+import { Table, Row, Col } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -19,7 +19,7 @@ export default function Ingredient() {
   if (error) return <Error />;
   return (
     <>
-      <Row>
+     <Row className="w-100">
         <NavBar />
         <Col md={10} className=" p-5">
           {/* <Container> */}

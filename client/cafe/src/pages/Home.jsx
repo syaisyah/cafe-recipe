@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Card, Form, Table } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,10 +12,9 @@ import { useHistory } from "react-router";
 export default function Home() {
   const { data, loading, error } = useSelector((state) => state.menu);
   const { data: dataIngredients } = useSelector((state) => state.ingredients);
-
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
   useEffect(() => {
     dispatch(getAllMenuAsync());
   }, []);
@@ -34,9 +33,9 @@ export default function Home() {
   if (error) return <Error />;
   return (
     <>
-      <Row>
+      <Row className="w-100">
         <NavBar />
-        <Col md={10} className=" p-5">
+        <Col md={10} className="p-5">
           <Col className="d-flex justify-content-between">
             <h3>
               <i>Hai Admin... </i>
@@ -62,9 +61,9 @@ export default function Home() {
             </Card>
           </Col>
           <Col>
-            <Form.Control type="text" className="mb-3 w-50" placeholder="Search menu ..." />
+            {/* <Form.Control type="text" className="mb-3 w-50" name="filter" placeholder="Search menu by name..." /> */}
             {/* filter use dropdown */}
-            <Table striped bordered hover style={{backgroundColor: "white"}} >
+            <Table striped bordered hover style={{ backgroundColor: "white" }}>
               <thead>
                 <tr>
                   <th>No</th>
@@ -75,7 +74,7 @@ export default function Home() {
               </thead>
               <tbody>
                 {data.map((menu, i) => {
-                  return <Menu key={menu.id + "menuId"} menu={{ menu, index: i, dataIngredients}} />;
+                  return <Menu key={menu.id + "menuId"} menu={{ menu, index: i, dataIngredients }} />;
                 })}
               </tbody>
             </Table>

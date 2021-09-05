@@ -98,3 +98,4 @@ export function deleteMenuInDB(id) {
     .finally(_ => dispatch(setLoading(false)))
   }
 }
+

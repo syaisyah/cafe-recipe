@@ -10,23 +10,22 @@ export default function Menu(props) {
   const { menu, index, dataIngredients } = props.menu;
   const { id } = menu;
   const { data } = useSelector((state) => state.recipes);
-  
+  const [recipes, setRecipes] = useState([]);
   const dispatch = useDispatch();
 
 
+   
   //button get resep
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const getRecipe = (e) => {
-    e.preventDefault();
-    setShow(true);
+  const getRecipe = () => {
     dispatch(getRecipeOfMenu(id));
+    setShow(true);
   };
   //button edit menu
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [editMenu, setEditMenu] = useState({});
-  const showFormEditMenu = (e) => {
-    e.preventDefault();
+  const showFormEditMenu = () => {
     setShowEditMenu(true);
   };
 
@@ -51,13 +50,10 @@ export default function Menu(props) {
   };
 
   //button edit recipe
-  const [recipes, setRecipes] = useState([]);
   const [showEditRecipe, setShowEditRecipe] = useState(false);
   const handleCloseEditRecipe = () => setShowEditRecipe(false);
-  const showFormEditRecipe = (e) => {
-    e.preventDefault();
+  const showFormEditRecipe = () => {
     dispatch(getRecipeOfMenu(id));
-    setShowEditRecipe(true);
     let temp = JSON.parse(JSON.stringify(dataIngredients)).map((item, i) => {
       return {
         id: item.id,
@@ -67,16 +63,15 @@ export default function Menu(props) {
     });
 
     //kalo id nya sama ada di resep maka isChecked true
-
     for (let i = 0; i < temp.length; i++) {
       let find = data.find((item) => item.IngredientId === temp[i].id);
-      console.log(data[i], find, "find ");
       if (find) {
         temp[i].isChecked = true;
       }
     }
-    console.log(temp, "ini temp ");
     setRecipes(temp);
+    // recipes masi ketinggalan satu state 
+    setShowEditRecipe(true);
   };
 
   const handleOnChangeEditRecipe = (e, i) => {
@@ -107,7 +102,6 @@ export default function Menu(props) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        //delte
         dispatch(deleteMenuInDB(id));
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
@@ -123,16 +117,16 @@ export default function Menu(props) {
           <Image style={{ width: "200px", height: "200px" }} src={menu.image} rounded />
         </td>
         <td>
-          <Button variant="danger" onClick={getRecipe}>
+          <Button variant="danger" className="w-5 mx-1" onClick={getRecipe}>
             Recipe
           </Button>
           <Button variant="info" className="w-5 mx-1" onClick={deleteMenu}>
             Delete
           </Button>
-          <Button variant="primary" onClick={showFormEditMenu}>
+          <Button variant="primary" className="w-5 mx-1" onClick={showFormEditMenu}>
             Edit Menu
           </Button>
-          <Button variant="info" onClick={showFormEditRecipe}>
+          <Button variant="info" className="w-5 mx-1" onClick={showFormEditRecipe}>
             Edit Recipe
           </Button>
           {/*  */}

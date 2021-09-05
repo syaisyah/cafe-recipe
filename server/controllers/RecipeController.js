@@ -3,22 +3,6 @@ const { Recipe, Menu, Ingredient, sequelize } = require('../models/');
 
 
 class RecipeController {
-  //kepae
-  static async findAllRecipes(req, res, next) {
-    try {
-      const data = await Recipe.findAll({
-        include: [
-          { model: Menu },
-          { model: ingredient }
-        ]
-      })
-      res.status(200).json({ success: true, data })
-    } catch (err) {
-      next(err)
-    }
-  }
-
-
   // edit resep di menu tertentu
   // kepake 
   static async getRecipeOfMenu(req, res, next) { // kepake di tombol recipe

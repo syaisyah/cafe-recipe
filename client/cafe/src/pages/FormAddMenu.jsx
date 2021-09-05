@@ -46,8 +46,6 @@ export default function FormAddMenu() {
 
   const submit = () => {
     const filterIngredients = ingredients.filter(item => item.isChecked === true)
-
-    console.log(filterIngredients, '.............')
     const newMenu = {
       menu, ingredients: filterIngredients
     }
@@ -58,7 +56,7 @@ export default function FormAddMenu() {
   const moveToHome = () => history.push('/')
   return (
     <> 
-      <Row>
+      <Row className="w-100">
         <NavBar />
         <Col md={10}>
           <Container className=" p-5" style={{ marginTop: "150px", backgroundColor: "white", border: "1px solid grey" }}>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Modal, Form } from "react-bootstrap";
 import { editIngredients, deleteIngredientInDB } from "../store/actions/ingredients";
-
+import Swal from "sweetalert2";
 export default function IngredientCard(props) {
   const dispatch = useDispatch();
   const { ingredient, index } = props.ingredient;
@@ -29,7 +29,21 @@ export default function IngredientCard(props) {
   
   
   const deleteIngredient = () => {
-    dispatch(deleteIngredientInDB(id))
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteIngredientInDB(id))
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+    
   }
   return (
     <>
