@@ -14,9 +14,24 @@ export function setRecipes(payload) {
 }
 
 
+
+// export function findAllRecipesAsync() {
+//   return (dispatch) => {
+//     axios({
+//       url: baseURL + '/recipes/',
+//       method: "GET",
+//       headers: { access_token: localStorage.getItem('access_token') }
+//     })
+//       .then(({ data }) => {
+        
+//       })
+//       .catch(err => console.log(err))
+//       .finally(_ => dispatch(setLoading(false)))
+//   }
+// }
+
 export function getRecipeOfMenu(idMenu) {
   return (dispatch, getState) => {
-
     axios({
       url: baseURL + '/recipes/' + idMenu,
       method: "GET",

@@ -2,15 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { Button, Image, Modal, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getRecipeOfMenu,editRecipeToDB, } from "../store/actions/recipes";
+import { getRecipeOfMenu, editRecipeToDB } from "../store/actions/recipes";
 import { editMenuToDB, deleteMenuInDB } from "../store/actions/menu";
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 export default function Menu(props) {
-  const { menu, index, dataIngredients} = props.menu;
+  const { menu, index, dataIngredients } = props.menu;
   const { id } = menu;
   const { data } = useSelector((state) => state.recipes);
+  
   const dispatch = useDispatch();
 
 
@@ -51,74 +51,68 @@ export default function Menu(props) {
   };
 
   //button edit recipe
-  const [recipes, setRecipes] = useState([])
-  //const [ingredients, setIngredients] = useState([])
+  const [recipes, setRecipes] = useState([]);
   const [showEditRecipe, setShowEditRecipe] = useState(false);
   const handleCloseEditRecipe = () => setShowEditRecipe(false);
   const showFormEditRecipe = (e) => {
     e.preventDefault();
+    dispatch(getRecipeOfMenu(id));
     setShowEditRecipe(true);
-    if (!data.length)  dispatch(getRecipeOfMenu(id));
     let temp = JSON.parse(JSON.stringify(dataIngredients)).map((item, i) => {
       return {
         id: item.id,
         name: item.name,
         isChecked: false,
-      }
-    })
-  
-  //kalo id nya sama ada di resep maka isChecked true 
-  
-   for (let i=0; i< temp.length; i++) {
-    let find = data.find((item) => item.IngredientId === temp[i].id)
-    console.log(data[i], find, 'find ')
-    if (find) {
-      temp[i].isChecked = true
-    }
-   }
-    console.log(temp, 'ini temp ')
-   setRecipes(temp)
-  };
-   
-  const handleOnChangeEditRecipe = (e, i) => {
-    const {checked} = e.target
-    let temp = JSON.parse(JSON.stringify(recipes))
-    temp[i].isChecked = checked;
-    setRecipes(temp)
+      };
+    });
 
-  }
+    //kalo id nya sama ada di resep maka isChecked true
+
+    for (let i = 0; i < temp.length; i++) {
+      let find = data.find((item) => item.IngredientId === temp[i].id);
+      console.log(data[i], find, "find ");
+      if (find) {
+        temp[i].isChecked = true;
+      }
+    }
+    console.log(temp, "ini temp ");
+    setRecipes(temp);
+  };
+
+  const handleOnChangeEditRecipe = (e, i) => {
+    const { checked } = e.target;
+    let temp = JSON.parse(JSON.stringify(recipes));
+    temp[i].isChecked = checked;
+    setRecipes(temp);
+  };
 
   const editRecipe = () => {
-    let arr = recipes.filter(recipe => recipe.isChecked === true)
+    let arr = recipes.filter((recipe) => recipe.isChecked === true);
     if (arr.length === 0) {
-      Swal.fire('Please select the recipe')
+      Swal.fire("Please select the recipe");
     } else {
-      dispatch(editRecipeToDB({ MenuId: menu.id, recipes: arr}))
+      dispatch(editRecipeToDB({ MenuId: menu.id, recipes: arr }));
     }
     setShowEditRecipe(false);
   };
   //button delete Menu
   const deleteMenu = () => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         //delte
-        dispatch(deleteMenuInDB(id))
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        dispatch(deleteMenuInDB(id));
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -192,20 +186,9 @@ export default function Menu(props) {
               {/* {JSON.stringify(recipes)} */}
               <Form>
                 <Form.Group className="mb-3">
-                 {
-                   recipes.map((item, i) => {
-                     return (
-                      <Form.Check 
-                      inline
-                      type="checkbox"
-                      key={item.id + 'recipes'}
-                      label={item.name}
-                      checked={item.isChecked}
-                      onChange={e => handleOnChangeEditRecipe(e, i)}
-                    />
-                     )
-                   })
-                 }
+                  {recipes.map((item, i) => {
+                    return <Form.Check inline type="checkbox" key={item.id + "recipes"} label={item.name} checked={item.isChecked} onChange={(e) => handleOnChangeEditRecipe(e, i)} />;
+                  })}
                 </Form.Group>
               </Form>
             </Modal.Body>

@@ -40,8 +40,8 @@ export function addMenuToDB(payload) {
       headers: { access_token: localStorage.getItem('access_token') }
     })
       .then(({ data }) => {
-        console.log(data, 'action menu')
         dispatch(addMenu(data.dataMenu))
+        dispatch(getAllMenuAsync())
       })
       .catch(err => console.log(err))
       .finally(_ => dispatch(setLoading(false)))

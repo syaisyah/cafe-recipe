@@ -3,6 +3,7 @@ const { Recipe, Menu, Ingredient, sequelize } = require('../models/');
 
 
 class RecipeController {
+  //kepae
   static async findAllRecipes(req, res, next) {
     try {
       const data = await Recipe.findAll({

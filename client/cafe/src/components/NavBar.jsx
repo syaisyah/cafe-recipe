@@ -34,7 +34,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Col md={2} className="bg-light py-5" style={{ height: "100vh" }}>
+      <Col md={2} className="bg-light py-5" style={{ height: "300vh" }}>
         <div className="d-flex flex-column justify-content-space-between align-items-center my-5">
           <Button variant="info" className="w-50 mb-2" onClick={showFormAddMenu}>
             + Menu

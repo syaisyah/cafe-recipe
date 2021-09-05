@@ -25,7 +25,7 @@ class MenuController {
   // kepake  diubah nih pake find Recipe nya juga ya 
   static async getAllMenu(req, res, next) {
     try {
-      const menu = await Menu.findAll()
+      const menu = await Menu.findAll() 
       res.status(200).json(menu)
     } catch (err) {
       next(err)

@@ -7,9 +7,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   const { type, payload } = action
   switch (type) {
-    case 'loading/setLoading':
+    case 'ingredients/setLoading':
       return { ...state, loading: payload }
-    case 'error/setError':
+    case 'ingredients/setError':
       return { ...state, error: payload }
     case 'ingredients/setIngredients':
       return { ...state, data: payload }

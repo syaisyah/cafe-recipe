@@ -49,6 +49,7 @@ class IngredientController {
       const ingredient = await Ingredient.findByPk(id)
       if (ingredient) {
         await Ingredient.destroy({ where: { id } })
+        res.status(200).json({ message: `Successfully deleted a ingredient with id ${id}`})
       } else next({ msg: "Ingredient Not Found" })
     } catch (err) {
       next(err)
