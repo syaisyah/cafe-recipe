@@ -1,20 +1,20 @@
-const { Menu, Recipe, Ingredient } = require('../models/')
+// const dataRecipes = await Recipe.bulkCreate(newRecipe, { individualHooks: true})
+const { Menu, Recipe, Ingredient, sequelize } = require('../models/')
 
 class MenuController {
   static async createMenu(req, res, next) {
     try {
-      // ngambil id dari ingredients nya buat dimasukin ke recipe table
-      // recipes : { MenuId: id, IngredientId: id } // dari client 
-      console.log(req.body, 'ini req.body createMenu >>>>>>>>>>>>>>>>>>')
-      // const { name, image } = req.body;
-      // const newMenu = { name, image }
-      // const menu = await Menu.create(newMenu)
-      // const dataRecipes = await Recipe.create({
-      //   MenuId: recipes.MenuId,
-      //   Ingredient: recipes.IngredientId
-      // })
-
-      // res.status(201).json({ success: true, message: "Successfully created a new menu" })
+      const { menu, ingredients } = req.body;
+      const newMenu = { name: menu.name, image: menu.image }
+      const result = sequelize.transaction(async transaction => {
+        const dataMenu = await Menu.create(newMenu)
+        const newRecipe = ingredients.map(item => {
+          return { MenuId: dataMenu.id, IngredientId: item.id }
+        })
+        await Recipe.bulkCreate(newRecipe, { transaction })
+        return dataMenu
+      })
+      res.status(201).json({ success: true, message: "Successfully created a new menu", dataMenu: result })
 
     } catch (err) {
       next(err)
@@ -51,6 +51,7 @@ class MenuController {
   // }
   // router.put('/:id', authAdmin, MenuController.editDetailMenu)
   // harusnya resep nya juga diedit 
+  // kepake 
   static async editMenu(req, res, next) {
     const idMenu = +req.params.id;
     const menu = await Menu.findByPk(idMenu)

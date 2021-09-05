@@ -26,6 +26,12 @@ export default function NavBar() {
   const showFormAddMenu = () => history.push("/menu/add");
 
   const moveToHome = () => history.push("/");
+
+  const showIngredients = () => {
+    history.push('/ingredients')
+  }
+
+
   return (
     <>
       <Col md={2} className="bg-light py-5" style={{ height: "100vh" }}>
@@ -62,7 +68,7 @@ export default function NavBar() {
           <Button variant="info" className="w-50 mb-2" onClick={moveToHome}>
             Menu
           </Button>
-          <Button variant="warning" className="w-50 mb-2">
+          <Button variant="warning" className="w-50 mb-2" onClick={showIngredients}>
             Ingredients
           </Button>
         </div>

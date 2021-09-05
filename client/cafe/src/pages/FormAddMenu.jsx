@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
 import axios from 'axios'
 import baseURL from "../store/helpers/baseURL";
+import { useDispatch } from "react-redux";
+import {addMenuToDB} from '../store/actions/menu';
 
 export default function FormAddMenu() {
   const history = useHistory();
+  const dispatch = useDispatch()
   const [menu, setMenu] = useState({ name: "", image: "" });
   const [ingredients, setIngredients] = useState([]);
  
-
+  
   useEffect(() => {
     axios({
       url: baseURL + '/ingredients',
@@ -27,6 +27,7 @@ export default function FormAddMenu() {
       setIngredients(options)
     })
     .catch(err => console.log(err))
+
   }, []);
   
 
@@ -50,13 +51,12 @@ export default function FormAddMenu() {
     const newMenu = {
       menu, ingredients: filterIngredients
     }
-
-    console.log(newMenu, '?>>>>>>>>>>')
+    dispatch(addMenuToDB(newMenu))
   };
 
   const moveToHome = () => history.push('/')
   return (
-    <>
+    <> 
       <Row>
         <NavBar />
         <Col md={10}>

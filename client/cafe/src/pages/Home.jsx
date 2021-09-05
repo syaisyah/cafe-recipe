@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Col, Button, Card, Form, Table, Image } from "react-bootstrap";
+import { Row, Col, Button, Card, Form, Table } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllMenuAsync } from "../store/actions/menu";
@@ -12,6 +12,7 @@ import { useHistory } from "react-router";
 export default function Home() {
   const { data, loading, error } = useSelector((state) => state.menu);
   const { data: dataIngredients } = useSelector((state) => state.ingredients);
+
   const dispatch = useDispatch();
   const history = useHistory();
   

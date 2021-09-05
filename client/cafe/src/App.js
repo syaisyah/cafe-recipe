@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login'
 import FormAddMenu from './pages/FormAddMenu';
 import PageNotFound from './components/PageNotFound';
-
+import Ingredient from './pages/Ingredients';
 
 function App() {
   return (
@@ -21,12 +21,16 @@ function App() {
           <PrivateRoute path="/menu/add">
             <FormAddMenu />
           </PrivateRoute>
-          <Route path="/login">
-            <Login />
-          </Route>
+          {/* <PrivateRoute>
+            <Ingredient path="/ingredients" />
+          </PrivateRoute> */}
           <PrivateRoute path="/">
             <Home />
           </PrivateRoute>
+          <Route path="/login">
+            <Login />
+          </Route>
+
           <Route path="*">
             <PageNotFound />
           </Route>
